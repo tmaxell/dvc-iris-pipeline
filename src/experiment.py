@@ -35,7 +35,7 @@ def train_model(X_train, y_train, max_iter=200):
     model.fit(X_train, y_train)
     return model
 
-def evaluate_model(model, X_test, y_test):
+def evaluate_model(model, X_test, y_test, max_iter):
     y_pred = model.predict(X_test)
     accuracy = accuracy_score(y_test, y_pred)
     
@@ -70,7 +70,7 @@ def run_experiment(max_iter=200):
 
     model = train_model(X_train, y_train, max_iter)
     
-    cm = evaluate_model(model, X_test, y_test)
+    cm = evaluate_model(model, X_test, y_test, max_iter)
     
     plot_confusion_matrix(cm, max_iter)
     
