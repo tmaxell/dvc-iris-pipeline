@@ -9,7 +9,8 @@ import os
 data = pd.read_csv("data/iris.csv", header=None)
 data.columns = ["Id", "SepalLengthCm", "SepalWidthCm", "PetalLengthCm", "PetalWidthCm", "Species"]
 
-X = data.drop("Species", axis=1)
+# Исключение столбца "Id" из данных
+X = data.drop(["Id", "Species"], axis=1)
 y = data["Species"]
 
 # Разделение на обучающую и тестовую выборки
