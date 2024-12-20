@@ -36,3 +36,43 @@ stages:
       hash: md5
       md5: 1a23f6d5c203778bba88bba963cf481f
       size: 13622
+  experiment1:
+    cmd: /opt/anaconda3/bin/python src/experiment.py --max_iter 100
+    deps:
+    - path: data/iris.csv
+      hash: md5
+      md5: c270e2e0ffebb6c3e9b3f67e97dbdc09
+      size: 2778
+    - path: src/experiment.py
+      hash: md5
+      md5: 2906a5fcc4e35644663bb821106409cf
+      size: 3010
+    outs:
+    - path: metrics/metrics_100.json
+      hash: md5
+      md5: ce3618d86a47cfba7d4c112ac4a2d677
+      size: 23
+    - path: plots/confusion_matrix_100.png
+      hash: md5
+      md5: 7668a30878631cf91d3f7d6bdc674bcd
+      size: 15771
+  experiment2:
+    cmd: /opt/anaconda3/bin/python src/experiment.py --max_iter 300
+    deps:
+    - path: data/iris.csv
+      hash: md5
+      md5: c270e2e0ffebb6c3e9b3f67e97dbdc09
+      size: 2778
+    - path: src/experiment.py
+      hash: md5
+      md5: 2906a5fcc4e35644663bb821106409cf
+      size: 3010
+    outs:
+    - path: metrics/metrics_300.json
+      hash: md5
+      md5: ce3618d86a47cfba7d4c112ac4a2d677
+      size: 23
+    - path: plots/confusion_matrix_300.png
+      hash: md5
+      md5: be04892914dbf4d6cda8838217cb7f1d
+      size: 16004

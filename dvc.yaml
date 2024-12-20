@@ -17,7 +17,7 @@ stages:
       - plots/confusion_matrix.png
   
   experiment1:
-    cmd: /opt/anaconda3/bin/python src/experiment.py run_experiment --max_iter 100
+    cmd: /opt/anaconda3/bin/python src/experiment.py --max_iter 100
     deps:
       - src/experiment.py
       - data/iris.csv
@@ -26,7 +26,7 @@ stages:
       - plots/confusion_matrix_100.png
   
   experiment2:
-    cmd: /opt/anaconda3/bin/python src/experiment.py run_experiment --max_iter 300
+    cmd: /opt/anaconda3/bin/python src/experiment.py --max_iter 300
     deps:
       - src/experiment.py
       - data/iris.csv
