@@ -17,6 +17,7 @@ def load_data():
     iris = load_iris()
     df = pd.DataFrame(iris.data, columns=iris.feature_names)
     df['Species'] = iris.target
+    df.to_csv('data/iris.csv', index=False)
     return df
 
 def split_data(df):

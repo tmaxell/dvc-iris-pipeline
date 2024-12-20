@@ -1,0 +1,38 @@
+schema: '2.0'
+stages:
+  prepare_data:
+    cmd: /opt/anaconda3/bin/python src/train.py prepare_data
+    deps:
+    - path: src/train.py
+      hash: md5
+      md5: bcf5a02b6f06b7113dc747688ea7fbde
+      size: 1969
+    outs:
+    - path: data/iris.csv
+      hash: md5
+      md5: c270e2e0ffebb6c3e9b3f67e97dbdc09
+      size: 2778
+  train_model:
+    cmd: python src/train.py
+    deps:
+    - path: data/iris.csv
+      hash: md5
+      md5: c270e2e0ffebb6c3e9b3f67e97dbdc09
+      size: 2778
+    - path: src/train.py
+      hash: md5
+      md5: bcf5a02b6f06b7113dc747688ea7fbde
+      size: 1969
+    outs:
+    - path: metrics/metrics.json
+      hash: md5
+      md5: ce3618d86a47cfba7d4c112ac4a2d677
+      size: 23
+    - path: models/iris_model.joblib
+      hash: md5
+      md5: e06a218a883193645a4511652bfefbcf
+      size: 1375
+    - path: plots/confusion_matrix.png
+      hash: md5
+      md5: 1a23f6d5c203778bba88bba963cf481f
+      size: 13622

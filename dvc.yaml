@@ -1,13 +1,17 @@
 stages:
-  train:
-    cmd: python3 src/train.py
+  prepare_data:
+    cmd: /opt/anaconda3/bin/python src/train.py prepare_data  # Внешний скрипт для подготовки данных
     deps:
-      - src/train.py
-      - data/iris.csv
+      - src/train.py  # Скрипт подготовки данных (если подготовка данных отдельная)
     outs:
-      - models/model.pkl
-    metrics:
-      - metrics/results.json:
-          cache: false
-    plots:
-      - metrics/results.json
+      - data/iris.csv  # Исходные данные, которые DVC отслеживает
+
+  train_model:
+    cmd: python src/train.py  # Команда для запуска основного скрипта, который обучает модель
+    deps:
+      - src/train.py  # Скрипт для обучения модели
+      - data/iris.csv  # Данные, которые используются для обучения модели
+    outs:
+      - models/iris_model.joblib  # Сохраненная модель
+      - metrics/metrics.json  # Сохраненные метрики
+      - plots/confusion_matrix.png  # Сохраненный график
