@@ -7,10 +7,10 @@ import os
 
 # Загрузка данных
 data = pd.read_csv("data/iris.csv", header=None)
-data.columns = ["sepal_length", "sepal_width", "petal_length", "petal_width", "class"]
+data.columns = ["Id", "SepalLengthCm", "SepalWidthCm", "PetalLengthCm", "PetalWidthCm", "Species"]
 
-X = data.drop("class", axis=1)
-y = data["class"]
+X = data.drop("Species", axis=1)
+y = data["Species"]
 
 # Разделение на обучающую и тестовую выборки
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
