@@ -9,6 +9,7 @@ import os
 from joblib import dump
 import matplotlib.pyplot as plt
 import seaborn as sns
+import argparse
 
 # Создание папок, если они не существуют
 os.makedirs('metrics', exist_ok=True)
@@ -79,4 +80,10 @@ def run_experiment(max_iter=200):
     dump(model, model_filename)
 
 if __name__ == '__main__':
-    run_experiment(max_iter=200)  # По умолчанию используем max_iter=200
+    # Парсинг аргумента max_iter
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--max_iter', type=int, default=200, help='Maximum number of iterations for LogisticRegression')
+    args = parser.parse_args()
+
+    # Запуск эксперимента с переданным значением max_iter
+    run_experiment(max_iter=args.max_iter)
