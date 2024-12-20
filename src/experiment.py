@@ -7,7 +7,10 @@ from sklearn.metrics import accuracy_score, confusion_matrix
 import json
 import os
 from joblib import dump
+import matplotlib.pyplot as plt
+import seaborn as sns
 
+# Создание папок, если они не существуют
 os.makedirs('metrics', exist_ok=True)
 os.makedirs('plots', exist_ok=True)
 os.makedirs('models', exist_ok=True)
@@ -39,22 +42,26 @@ def evaluate_model(model, X_test, y_test):
     cm = confusion_matrix(y_test, y_pred)
     
     metrics = {"accuracy": accuracy}
-    with open('metrics/metrics.json', 'w') as f:
+    
+    # Сохраняем метрики в файл с уникальным именем
+    metrics_filename = f'metrics/metrics_{max_iter}.json'
+    with open(metrics_filename, 'w') as f:
         json.dump(metrics, f, indent=4)
 
     print(f"Accuracy: {accuracy}")
     return cm
 
-def plot_confusion_matrix(cm):
-    import matplotlib.pyplot as plt
-    import seaborn as sns
+def plot_confusion_matrix(cm, max_iter):
     plt.figure(figsize=(8,6))
     sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=[0,1,2], yticklabels=[0,1,2])
     plt.xlabel('Predicted')
     plt.ylabel('True')
-    plt.title('Confusion Matrix')
-    plt.savefig('plots/confusion_matrix.png')
-    plt.show()
+    plt.title(f'Confusion Matrix (max_iter={max_iter})')
+    
+    # Сохраняем график с уникальным именем
+    plot_filename = f'plots/confusion_matrix_{max_iter}.png'
+    plt.savefig(plot_filename)
+    plt.close()
 
 def run_experiment(max_iter=200):
     df = load_data()
@@ -65,9 +72,11 @@ def run_experiment(max_iter=200):
     
     cm = evaluate_model(model, X_test, y_test)
     
-    plot_confusion_matrix(cm)
+    plot_confusion_matrix(cm, max_iter)
     
-    dump(model, 'models/iris_model.joblib')
+    # Сохраняем модель в файл с уникальным именем
+    model_filename = f'models/iris_model_{max_iter}.joblib'
+    dump(model, model_filename)
 
 if __name__ == '__main__':
-    run_experiment(max_iter=200) 
+    run_experiment(max_iter=200)  # По умолчанию используем max_iter=200
